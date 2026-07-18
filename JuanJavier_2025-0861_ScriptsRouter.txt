@@ -1,0 +1,70 @@
+! =======================================================
+! 1. CONFIGURACIÓN BÁSICA, DIRECCIONAMIENTO E INTERFACES
+! =======================================================
+hostname R1
+
+! Configuración de la interfaz que conecta hacia el servidor Windows Server (8.61.1.254)
+interface e0/0
+ ip address 8.61.1.1 255.255.255.0
+ no shutdown
+exit
+
+! Configuración de la interfaz de la red local / clientes
+interface e0/1
+ ip address 10.8.61.1 255.255.255.0
+ no shutdown
+exit
+
+! =======================================================
+! 2. SERVIDOR DHCP PARA LOS CLIENTES DE LA LAN
+! =======================================================
+! Excluir la IP de administración del router para evitar duplicados
+ip dhcp excluded-address 10.8.61.1
+
+ip dhcp pool LAN_CLIENTES
+ network 10.8.61.0 255.255.255.0
+ default-router 10.8.61.1
+ dns-server 8.61.1.254
+exit
+
+! =======================================================
+! 3. SEGURIDAD LOCAL Y ACTIVACIÓN DE SSH
+! =======================================================
+ip domain-name underwatersrl.underwater.com
+crypto key generate rsa general-keys modulus 2048
+
+! Usuario local de rescate (Obligatorio por si falla RADIUS)
+username admin privilege 15 secret welcome
+! =======================================================
+! 4. ARQUITECTURA AAA Y CONFIGURACIÓN MODERNA RADIUS
+! =======================================================
+aaa new-model
+
+! Configuración del servidor RADIUS usando la sintaxis actual
+radius server NPS_SERVER
+ address ipv4 8.61.1.254 auth-port 1812 acct-port 1813
+ key Cisco123
+exit
+
+! Definir métodos de autenticación y autorización
+! (Busca en RADIUS; si no responde, conmuta a la base de datos local)
+aaa authentication login default group radius local
+aaa authorization exec default group radius local
+
+! Forzar al router a enviar las solicitudes en formato PAP (Requerido por NPS)
+ip radius source-interface e0/0
+radius-server attribute 8 format default
+radius-server vsa send authentication
+
+! =======================================================
+! 5. APLICACIÓN A LAS LÍNEAS DE ACCESO (VTY)
+! =======================================================
+line con 0
+ login authentication default
+exit
+
+line vty 0 4
+ login authentication default
+ authorization exec default
+ transport input ssh
+exit
