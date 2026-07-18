@@ -65,9 +65,24 @@ Todo el entorno fue construido y emulado utilizando **PNETLab** y **VMWare**.
 ### 1. Servicios de Windows Server
 - **Servidor Web (IIS):** Se configuró un sitio corporativo personalizado vinculado a `underwatersrl.underwater.com`. Se protegió mediante un Certificado Digital interno con una clave privada exportable generada en el almacén de certificados Personal (Mi) del sistema.
 
+  ![Certificado](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/1863ced42f4f936a05e200464a4848e833b302ca/Imagenes/02.%20Certificado%20IIS.png)
+
+  ![PaginaPersonalizada](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/1863ced42f4f936a05e200464a4848e833b302ca/Imagenes/03.%20Pagina%20IIS%20Personalizada.png)
+
 - **Aplicación remota y cliente web HTML5:** Se configuró un Agente de conexión de Escritorio remoto que coincide con el FQDN externo para mitigar los errores de coincidencia de direcciones del navegador. Microsoft Edge se publicó como una aplicación remota que apunta de forma nativa al portal interno, accesible directamente desde navegadores estándar a través del moderno cliente web HTML5.
+![Rol](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/1863ced42f4f936a05e200464a4848e833b302ca/Imagenes/04.%20Rol%20RDS.png)
+
+- **Evidencia Remote Desktop:**
+![Evi1RDS](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/1863ced42f4f936a05e200464a4848e833b302ca/Imagenes/05.%20Evidencia%201%20RDS.png)
+![Evi2RDS](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/1863ced42f4f936a05e200464a4848e833b302ca/Imagenes/06.%20Evidencia%202%20RDS.png)
+
+- **Evidencia Remote Desktop cliente web HTML5:**
+![Evi1RDSWeb](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/1863ced42f4f936a05e200464a4848e833b302ca/Imagenes/07.%20Evidencia%201%20RDS%20Web.png)
+![Evi2RDSWeb](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/1863ced42f4f936a05e200464a4848e833b302ca/Imagenes/08.%20Evidencia%202%20RDS%20Web.png)
+
 
 - **Servidor RADIUS (NPS):** Se registró el router Cisco R1 (`8.61.1.1`) como cliente de red utilizando una clave compartida predefinida. Se configuraron dos políticas de red independientes que asignan grupos de Active Directory a niveles de ejecución de Cisco mediante atributos específicos del proveedor (`cisco-av-pair`):
+![Radius](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/1863ced42f4f936a05e200464a4848e833b302ca/Imagenes/09.%20Radius%20Config.png)
 
 - **Política de nivel 15 (Privilegiada):** Devuelve `shell:priv-lvl=15`
 
@@ -135,7 +150,10 @@ line vty 0 4
 exit
 !
 ```
-
+### 3. Conexiones SSH y Privilegio RADIUS
+- **Inicio**
+![Inicio](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/1863ced42f4f936a05e200464a4848e833b302ca/Imagenes/10.%20Inicio%20COnexion.png)
+![Fa](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/1863ced42f4f936a05e200464a4848e833b302ca/Imagenes/11.%20No%20se%20logro.png)
 ---
 
 ## 🎓 Authorship & Context
