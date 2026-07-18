@@ -7,7 +7,7 @@ Desarrollado como parte del plan de estudios **Seguridad de Red** en el **Instit
 
 El objetivo principal de este proyecto es implementar y hacer cumplir un control de acceso granular, centralizar las políticas de identidad de red y proteger la capa de aplicación en un entorno empresarial emulado.
 
-### Key Components:
+### Componentes Clave:
 - **Servidor AAA centralizado:** Servidor de directivas de red (NPS) de Windows Server que actúa como servidor RADIUS para autenticar a los administradores de red de Cisco frente a Active Directory.
 
 - **Aplicaciones remotas seguras:** Implementación de Servicios de escritorio remoto (RDS) mediante RemoteApp y cliente web HTML5 para aislar el software administrativo.
@@ -45,7 +45,7 @@ Todo el entorno fue construido y emulado utilizando **PNETLab** y **VMWare**.
            | (10.8.61.2)                     | (10.8.61.3)
            +-----------+                     +-----------+
 ```
-
+![Img Topologia](https://github.com/jjortiiz/DMZ-JumpServer-Radius/blob/19eb74b5b37bf0c380131750c7c2c7b819788e73/Imagenes/01.%20Topologia.png)
 ### 🔀 Tabla de Direccionamiento
 
 | Device | Interface | IP Address | Subnet Mask | Description |
